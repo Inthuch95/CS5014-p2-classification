@@ -15,9 +15,9 @@ df['y'] = y
 # split training set and testing set (80/20 ratio)
 print("Splitting train/test set")
 train_set, test_set = train_test_split(df, test_size=0.2, random_state=42)
-X_train = train_set.drop("y", axis=1)
+X_train = train_set[[526]]
 y_train = train_set["y"]
-X_test = test_set.drop("y", axis=1)
+X_test = test_set[[526]]
 y_test = test_set["y"]
 
 # create transformation pipeline
