@@ -27,11 +27,12 @@ y_test = test_set["y"]
 # min-max scaler for neural network
 full_pipeline = Pipeline([
         ("selector", DataFrameSelector(list(X_train))),
-        ("min_max_scaler", MinMaxScaler()),
+        ("scale", MinMaxScaler()),
     ])
 print("Transforming inputs")
 X_train = full_pipeline.fit_transform(X_train)
 X_test = full_pipeline.fit_transform(X_test)
+print(X_train.shape, X_test.shape)
 # save pre-processed data into text files
 print("Saving data")
 np.savetxt("../prepared_data/binary/X_train.txt", X_train)
