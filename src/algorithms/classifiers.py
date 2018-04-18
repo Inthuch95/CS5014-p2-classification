@@ -18,6 +18,7 @@ def logistic_regression(X_train, y_train, X_test, y_test, classifier_type="binar
     print("Model saved in ", path)    
     # get the error of training set
     print("")
+    print("Logistic Regression")
     display_scores(model, X_train, y_train, X_test, y_test)
     return model
     
@@ -32,8 +33,11 @@ def decision_tree(X_train, y_train, X_test, y_test, classifier_type="binary"):
         path = "../models/tree_multiclass.pkl"
     joblib.dump(model, path)
     print("Model saved in ", path)
-    print("Visualising tree")
-    feature_list = ["X["+str(i)+"]" for i in range(X_train.shape[1])]
-    path = save_decision_tree(model, classifier_type, feature_list)
-    print("Graph saved in ", path) 
+    print("")
+    print("Decision Tree")
+    display_scores(model, X_train, y_train, X_test, y_test)
+#     print("Visualising tree")
+#     feature_list = ["X["+str(i)+"]" for i in range(X_train.shape[1])]
+#     path = save_decision_tree(model, classifier_type, feature_list)
+#     print("Graph saved in ", path) 
     return model

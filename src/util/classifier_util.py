@@ -3,7 +3,7 @@ Created on Apr 16, 2018
 '''
 from sklearn.tree import export_graphviz
 from sklearn.metrics.regression import mean_squared_error
-import pydotplus
+# import pydotplus
 import numpy as np
 
 def load_train_test(dataset):
@@ -52,6 +52,6 @@ def save_decision_tree(model, classifier_type, feature_list):
             filled=True,
             impurity=False
         )
-    graph = pydotplus.graph_from_dot_data(dot_data)
-    graph.write_pdf(path)
+#     graph = pydotplus.graph_from_dot_data(dot_data)
+#     graph.write_pdf(path)
     return path
