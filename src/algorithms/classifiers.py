@@ -2,6 +2,7 @@
 Created on 13 Apr 2018
 '''
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.svm import LinearSVC
 from sklearn.externals import joblib
 from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier
@@ -39,6 +40,20 @@ def decision_tree(X_train, y_train, X_test, y_test, class_list, classifier_type=
     print("Graph saved in ", path) 
     return model
 
+def linear_svc(X_train, y_train, X_test, y_test, class_list, classifier_type="binary"):
+    model = LinearSVC(loss="hinge")
+    model.fit(X_train, y_train)
+    if classifier_type == "binary":
+        path = "../models/svc_binary.pkl"
+    else:
+        path = "../models/svc_multiclass.pkl"
+    joblib.dump(model, path) 
+    # get the error of training set
+    print("")
+    print("SVC")
+    display_scores(model, X_train, y_train, X_test, y_test, class_list)
+    return model
+    
 def mlp_classifier(X_train, y_train, X_test, y_test, class_list, classifier_type="binary"):
     model = MLPClassifier(max_iter=600)
     model.fit(X_train, y_train)

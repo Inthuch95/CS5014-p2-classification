@@ -28,8 +28,8 @@ def plot_confusion_matrix(cm, title='Confusion matrix', cmap=plt.cm.Oranges, cla
                  color="white" if cm[i, j] > thresh else "black")
 
     plt.tight_layout()
-    plt.ylabel('True label')
-    plt.xlabel('Predicted label')
+    plt.ylabel('Actual')
+    plt.xlabel('Predicted')
 
 def load_train_test(dataset):
     if dataset == "binary":
@@ -45,29 +45,29 @@ def load_train_test(dataset):
 def display_scores(model, X_train, y_train, X_test, y_test, class_list):
     y_train_pred = model.predict(X_train)
     train_confusion = confusion_matrix(y_train, y_train_pred)
-    mse = mean_squared_error(y_train, y_train_pred)
-    rmse = np.sqrt(mse)
+#     mse = mean_squared_error(y_train, y_train_pred)
+#     rmse = np.sqrt(mse)
     print("Train set result")
     print("Confusion matrix")
     print(train_confusion)
     print("Cross validation scores (3-fold): " + str(cross_val_score(model, X_train, y_train, cv=3, scoring="accuracy")))
-    print("MSE: " + str(mse))
-    print("RMSE: " + str(rmse))
-    print("R^2: " + str(model.score(X_train, y_train)))
+#     print("MSE: " + str(mse))
+#     print("RMSE: " + str(rmse))
+#     print("R^2: " + str(model.score(X_train, y_train)))
     
     # get the error of testing set
     print("")
     y_test_pred = model.predict(X_test)
     test_confusion = confusion_matrix(y_test, y_test_pred)
-    mse = mean_squared_error(y_test, y_test_pred)
-    rmse = np.sqrt(mse)
+#     mse = mean_squared_error(y_test, y_test_pred)
+#     rmse = np.sqrt(mse)
     print("Test set result")
     print("Confusion matrix")
     print(test_confusion)
     print("Cross validation scores (3-fold): " + str(cross_val_score(model, X_test, y_test, cv=3, scoring="accuracy")))
-    print("MSE: " + str(mse))
-    print("RMSE: " + str(rmse))
-    print("R^2: " + str(model.score(X_test, y_test)))
+#     print("MSE: " + str(mse))
+#     print("RMSE: " + str(rmse))
+#     print("R^2: " + str(model.score(X_test, y_test)))
     
     np.set_printoptions(precision=1) 
     fig1, ax1 = plt.subplots()
