@@ -8,7 +8,7 @@ from sklearn.neural_network import MLPClassifier
 from util.classifier_util import save_decision_tree, display_scores
 
 def logistic_regression(X_train, y_train, X_test, y_test, class_list, classifier_type="binary"):
-    model = LogisticRegression(n_jobs=-1)
+    model = LogisticRegression()
     model.fit(X_train, y_train)
     if classifier_type == "binary":
         path = "../models/logitreg_binary.pkl"
@@ -18,7 +18,6 @@ def logistic_regression(X_train, y_train, X_test, y_test, class_list, classifier
     # get the error of training set
     print("")
     print("Logistic Regression")
-    print("")
     display_scores(model, X_train, y_train, X_test, y_test, class_list)
     return model
     
@@ -33,16 +32,15 @@ def decision_tree(X_train, y_train, X_test, y_test, class_list, classifier_type=
     joblib.dump(model, path)
     print("")
     print("Decision Tree")
-    print("")
     display_scores(model, X_train, y_train, X_test, y_test, class_list)
-#     print("Visualising tree")
-#     feature_list = ["X["+str(i)+"]" for i in range(X_train.shape[1])]
-#     path = save_decision_tree(model, classifier_type, feature_list)
-#     print("Graph saved in ", path) 
+    print("Visualising tree")
+    feature_list = ["X["+str(i)+"]" for i in range(X_train.shape[1])]
+    path = save_decision_tree(model, classifier_type, feature_list, class_list)
+    print("Graph saved in ", path) 
     return model
 
 def mlp_classifier(X_train, y_train, X_test, y_test, class_list, classifier_type="binary"):
-    model = MLPClassifier()
+    model = MLPClassifier(max_iter=600)
     model.fit(X_train, y_train)
     if classifier_type == "binary":
         path = "../models/mlp_binary.pkl"
@@ -52,6 +50,5 @@ def mlp_classifier(X_train, y_train, X_test, y_test, class_list, classifier_type
     # get the error of training set
     print("")
     print("MLP Classifier")
-    print("")
     display_scores(model, X_train, y_train, X_test, y_test, class_list)
     return model

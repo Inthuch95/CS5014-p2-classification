@@ -7,7 +7,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import cross_val_score
 import itertools
 import matplotlib.pyplot as plt
-# import pydotplus
+import pydotplus
 import numpy as np
 
 def plot_confusion_matrix(cm, title='Confusion matrix', cmap=plt.cm.Oranges, class_names=None):
@@ -50,7 +50,7 @@ def display_scores(model, X_train, y_train, X_test, y_test, class_list):
     print("Train set result")
     print("Confusion matrix")
     print(train_confusion)
-    print("Cross validation scores (10-fold): " + str(cross_val_score(model, X_train, y_train, cv=10)))
+    print("Cross validation scores (3-fold): " + str(cross_val_score(model, X_train, y_train, cv=3, scoring="accuracy")))
     print("MSE: " + str(mse))
     print("RMSE: " + str(rmse))
     print("R^2: " + str(model.score(X_train, y_train)))
@@ -64,14 +64,12 @@ def display_scores(model, X_train, y_train, X_test, y_test, class_list):
     print("Test set result")
     print("Confusion matrix")
     print(test_confusion)
-    print("Cross validation scores (10-fold): " + str(cross_val_score(model, X_test, y_test, cv=10)))
+    print("Cross validation scores (3-fold): " + str(cross_val_score(model, X_test, y_test, cv=3, scoring="accuracy")))
     print("MSE: " + str(mse))
     print("RMSE: " + str(rmse))
     print("R^2: " + str(model.score(X_test, y_test)))
     
     np.set_printoptions(precision=1) 
-    print('Confusion matrix, without normalization')
-    print(test_confusion)
     fig1, ax1 = plt.subplots()
     plot_confusion_matrix(train_confusion, class_names=class_list)
     fig2, ax2 = plt.subplots()
@@ -92,6 +90,6 @@ def save_decision_tree(model, classifier_type, feature_list, class_list):
             filled=True,
             impurity=False
         )
-#     graph = pydotplus.graph_from_dot_data(dot_data)
-#     graph.write_pdf(path)
+    graph = pydotplus.graph_from_dot_data(dot_data)
+    graph.write_pdf(path)
     return path
