@@ -77,4 +77,7 @@ np.savetxt(prepared_path+"y_train.txt", y_train)
 np.savetxt(prepared_path+"X_test.txt", X_test)
 np.savetxt(prepared_path+"y_test.txt", y_test)
 np.savetxt(prepared_path+"XToClassify.txt", XToClassify)
+with open(prepared_path+"selected_feature.txt", 'w') as f:
+    for s in selected_features:
+        f.write(s + '\n')
 print("Pre-processing completed")

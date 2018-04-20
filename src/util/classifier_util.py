@@ -2,8 +2,7 @@
 Created on Apr 16, 2018
 '''
 from sklearn.tree import export_graphviz
-from sklearn.metrics.regression import mean_squared_error
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, accuracy_score
 from sklearn.model_selection import cross_val_score
 import itertools
 import matplotlib.pyplot as plt
@@ -45,29 +44,21 @@ def load_train_test(dataset):
 def display_scores(model, X_train, y_train, X_test, y_test, class_list):
     y_train_pred = model.predict(X_train)
     train_confusion = confusion_matrix(y_train, y_train_pred)
-#     mse = mean_squared_error(y_train, y_train_pred)
-#     rmse = np.sqrt(mse)
     print("Train set result")
     print("Confusion matrix")
     print(train_confusion)
-    print("Cross validation scores (3-fold): " + str(cross_val_score(model, X_train, y_train, cv=3, scoring="accuracy")))
-#     print("MSE: " + str(mse))
-#     print("RMSE: " + str(rmse))
-#     print("R^2: " + str(model.score(X_train, y_train)))
+    scores = cross_val_score(model, X_train, y_train, cv=5, scoring="accuracy")
+    print("Cross validation scores (5-fold): " + str(scores))
+    print("Cross validation accuracy: " + str(np.mean(scores)))
     
     # get the error of testing set
     print("")
     y_test_pred = model.predict(X_test)
     test_confusion = confusion_matrix(y_test, y_test_pred)
-#     mse = mean_squared_error(y_test, y_test_pred)
-#     rmse = np.sqrt(mse)
     print("Test set result")
     print("Confusion matrix")
     print(test_confusion)
-    print("Cross validation scores (3-fold): " + str(cross_val_score(model, X_test, y_test, cv=3, scoring="accuracy")))
-#     print("MSE: " + str(mse))
-#     print("RMSE: " + str(rmse))
-#     print("R^2: " + str(model.score(X_test, y_test)))
+    print("Accuracy scores: " + str(accuracy_score(y_test, y_test_pred)))
     
     np.set_printoptions(precision=1) 
     fig1, ax1 = plt.subplots()
@@ -76,15 +67,19 @@ def display_scores(model, X_train, y_train, X_test, y_test, class_list):
     plot_confusion_matrix(test_confusion, class_names=class_list)
     plt.show()
 
-def save_decision_tree(model, classifier_type, feature_list, class_list):
+def save_decision_tree(model, classifier_type, class_list):
     if classifier_type == "binary":
         path = "../models/tree_binary.pdf"
+        wavelength_path = "../prepared_data/binary/selected_feature.txt"
     else:
         path = "../models/tree_multiclass.pdf"
+        wavelength_path = "../prepared_data/multiclass/selected_feature.txt"
+    with open(wavelength_path, 'r') as f:
+        wavelength_list = [line.rstrip('\n') for line in f]
     dot_data = export_graphviz(
             model,
             out_file=None,
-            feature_names=feature_list,
+            feature_names=wavelength_list,
             class_names=class_list,
             rounded=True,
             filled=True,

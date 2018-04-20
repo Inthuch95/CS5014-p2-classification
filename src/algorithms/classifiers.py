@@ -35,8 +35,7 @@ def decision_tree(X_train, y_train, X_test, y_test, class_list, classifier_type=
     print("Decision Tree")
     display_scores(model, X_train, y_train, X_test, y_test, class_list)
     print("Visualising tree")
-    feature_list = ["X["+str(i)+"]" for i in range(X_train.shape[1])]
-    path = save_decision_tree(model, classifier_type, feature_list, class_list)
+    path = save_decision_tree(model, classifier_type, class_list)
     print("Graph saved in ", path) 
     return model
 
@@ -55,7 +54,7 @@ def linear_svc(X_train, y_train, X_test, y_test, class_list, classifier_type="bi
     return model
     
 def mlp_classifier(X_train, y_train, X_test, y_test, class_list, classifier_type="binary"):
-    model = MLPClassifier(max_iter=600)
+    model = MLPClassifier(solver='lbfgs', hidden_layer_sizes=(4,), activation="logistic", max_iter=600)
     model.fit(X_train, y_train)
     if classifier_type == "binary":
         path = "../models/mlp_binary.pkl"
