@@ -16,7 +16,6 @@ def logistic_regression(X_train, y_train, X_test, y_test, class_list, classifier
     else:
         path = "../models/logitreg_multiclass.pkl"
     joblib.dump(model, path) 
-    # get the error of training set
     print("")
     print("Logistic Regression")
     display_scores(model, X_train, y_train, X_test, y_test, class_list)
@@ -34,6 +33,7 @@ def decision_tree(X_train, y_train, X_test, y_test, class_list, classifier_type=
     print("")
     print("Decision Tree")
     display_scores(model, X_train, y_train, X_test, y_test, class_list)
+    # visualise the tree with graphviz
     print("Visualising tree")
     path = save_decision_tree(model, classifier_type, class_list)
     print("Graph saved in ", path) 
@@ -47,7 +47,6 @@ def linear_svc(X_train, y_train, X_test, y_test, class_list, classifier_type="bi
     else:
         path = "../models/svc_multiclass.pkl"
     joblib.dump(model, path) 
-    # get the error of training set
     print("")
     print("SVC")
     display_scores(model, X_train, y_train, X_test, y_test, class_list)
@@ -61,7 +60,6 @@ def mlp_classifier(X_train, y_train, X_test, y_test, class_list, classifier_type
     else:
         path = "../models/mlp_multiclass.pkl"
     joblib.dump(model, path) 
-    # get the error of training set
     print("")
     print("MLP Classifier")
     display_scores(model, X_train, y_train, X_test, y_test, class_list)

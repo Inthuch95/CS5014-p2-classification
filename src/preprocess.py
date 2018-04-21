@@ -8,6 +8,7 @@ from sklearn.feature_selection import RFE
 from sklearn.linear_model import LogisticRegression
 import pandas as pd
 import numpy as np
+import sys
 
 def select_features(train_set, feature_names, n_features):
     # use logistic regression as an estimator
@@ -20,11 +21,11 @@ def select_features(train_set, feature_names, n_features):
             selected_features.append(feature)
     return selected_features
 
-dataset = "multiclass"
-if dataset == "binary":
+dataset = sys.argv[1]
+if dataset == "-b":
     data_path = "../binary/"
     prepared_path = "../prepared_data/binary/"
-elif dataset == "multiclass":
+elif dataset == "-m":
     data_path = "../multiclass/"
     prepared_path = "../prepared_data/multiclass/"
 else:

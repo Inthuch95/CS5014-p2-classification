@@ -10,6 +10,7 @@ import pydotplus
 import numpy as np
 
 def plot_confusion_matrix(cm, title='Confusion matrix', cmap=plt.cm.Oranges, class_names=None):
+    # create confusion matrix plot
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
     plt.title(title)
     plt.colorbar()
@@ -31,6 +32,7 @@ def plot_confusion_matrix(cm, title='Confusion matrix', cmap=plt.cm.Oranges, cla
     plt.xlabel('Predicted')
 
 def load_train_test(dataset):
+    # load preprocessed data
     if dataset == "binary":
         path = "../prepared_data/binary/"
     else:
@@ -68,6 +70,7 @@ def display_scores(model, X_train, y_train, X_test, y_test, class_list):
     plt.show()
 
 def save_decision_tree(model, classifier_type, class_list):
+    # requires graphviz and pydotplus to visualise
     if classifier_type == "binary":
         path = "../models/tree_binary.pdf"
         wavelength_path = "../prepared_data/binary/selected_feature.txt"
